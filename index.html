@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BASTILLE — by Akshara, Akshita & Yaalini</title>
+  <meta name="description" content="A playful one‑page site exploring the history and meaning of the Bastille and its role in French history." />
+  <style>
+    :root{
+      --bg:#0e0f13; --card:#141722; --ink:#e8ecff; --muted:#b5c0ff; --accent:#4f67ff; --accent-2:#ff4f80; --ok:#27d07d; --warn:#ffd166;
+      --shadow: 0 10px 30px rgba(0,0,0,.25);
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0; padding:0; background:linear-gradient(180deg,#0d1020 0%, #0e0f13 60%, #111318 100%); color:var(--ink); font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial,sans-serif}
+    a{color:var(--warn); text-decoration:none}
+    .container{max-width:1000px; margin:0 auto; padding:24px}
+    header{
+      position:sticky; top:0; z-index:20; backdrop-filter: blur(8px);
+      background:linear-gradient(90deg, rgba(20,23,34,.85), rgba(20,23,34,.65));
+      border-bottom:1px solid rgba(255,255,255,.06)
+    }
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.5px}
+    .flag{display:inline-flex; width:30px; height:18px; border-radius:3px; overflow:hidden; box-shadow:var(--shadow)}
+    .flag i{display:block; width:33.333%; height:100%}
+    .flag .b{background:#0055a4} .flag .w{background:#fff} .flag .r{background:#ef4135}
+
+    .nav{display:flex; gap:16px; flex-wrap:wrap}
+    .nav a{color:var(--muted)}
+    .nav a:hover{color:#fff}
+
+    .hero{display:grid; grid-template-columns:1.15fr .85fr; gap:26px; align-items:center; padding:40px 0}
+    .hero h1{font-size:clamp(28px,5vw,54px); line-height:1.1; margin:0}
+    .tag{display:inline-block; background:linear-gradient(90deg,var(--accent),var(--accent-2)); padding:6px 10px; border-radius:999px; font-size:.85rem; color:white; box-shadow:var(--shadow)}
+    .card{background:var(--card); border:1px solid rgba(255,255,255,.06); border-radius:20px; padding:18px 20px; box-shadow:var(--shadow)}
+    .hero .illus{position:relative}
+
+    .grid{display:grid; gap:18px}
+    .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+    .grid.cols-2{grid-template-columns:repeat(2,1fr)}
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr;}
+      .grid.cols-3{grid-template-columns:1fr}
+      .grid.cols-2{grid-template-columns:1fr}
+    }
+
+    .fact{display:flex; gap:14px; align-items:flex-start}
+    .fact .year{min-width:72px; font-weight:800; color:var(--warn)}
+    .chip{display:inline-block; padding:4px 8px; border:1px solid rgba(255,255,255,.12); border-radius:999px; font-size:.8rem; color:var(--muted)}
+
+    .btn{appearance:none; border:0; background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:#fff; padding:12px 16px; border-radius:14px; font-weight:700; cursor:pointer; box-shadow:var(--shadow)}
+    .btn:active{transform:translateY(1px)}
+
+    .timeline{position:relative; padding:8px 0}
+    .timeline .track{height:4px; background:rgba(255,255,255,.12); border-radius:999px}
+    .timeline input{width:100%; appearance:none; background:transparent; margin:14px 0}
+    .timeline input::-webkit-slider-thumb{appearance:none; width:20px; height:20px; border-radius:50%; background:linear-gradient(90deg,var(--accent),var(--accent-2)); box-shadow:0 0 0 4px rgba(255,255,255,.15)}
+    .timeline .label{display:flex; justify-content:space-between; font:12px/1.2 inherit; color:var(--muted)}
+
+    .footnote{color:var(--muted); font-size:.9rem}
+    .footer{display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; padding:24px 0; border-top:1px solid rgba(255,255,255,.06)}
+
+    /* Fireworks canvas */
+    #show{position:relative; overflow:hidden}
+    #fw{position:absolute; inset:0; pointer-events:none}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap:16px;">
+      <div class="brand" aria-label="Bastille website home">
+        <span class="flag" aria-hidden="true"><i class="b"></i><i class="w"></i><i class="r"></i></span>
+        <span>BASTILLE</span>
+      </div>
+      <nav class="nav" aria-label="Sections">
+        <a href="#about">About</a>
+        <a href="#facts">History</a>
+        <a href="#day">Bastille Day</a>
+        <a href="#timeline">Timeline</a>
+        <a href="#show">Fireworks</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="card">
+        <span class="tag">BASTILLE</span>
+        <h1>The Bastille — Symbol of Freedom</h1>
+        <h3 style="margin-top:6px; color:var(--muted)">by Akshara, Akshita & Yaalini</h3>
+        <p>
+          The <strong>Bastille</strong> was a medieval fortress in Paris that became infamous as a state prison.
+          It symbolized the absolute power of the French monarchy. On 14 July 1789, it was stormed by revolutionaries,
+          marking a turning point in history. Today, it represents the triumph of liberty over oppression.
+        </p>
+        <div style="display:flex; gap:12px; flex-wrap:wrap">
+          <button class="btn" id="celebrate">Launch Fireworks</button>
+          <button class="btn" id="confettiBtn" style="background:linear-gradient(90deg,#27d07d,#00bcd4)">Throw Confetti</button>
+        </div>
+      </div>
+      <div class="illus">
+        <svg class="card" viewBox="0 0 520 360" role="img" aria-label="Stylized Bastille fortress">
+          <rect x="0" y="0" width="520" height="360" rx="18" fill="#121424" />
+          <g transform="translate(40,220)">
+            <rect width="440" height="16" rx="8" fill="#1a1e2f" />
+            <rect y="-110" width="440" height="110" rx="14" fill="#171b2b" />
+            <rect x="20" y="-100" width="80" height="100" rx="10" fill="#1c2032" />
+            <rect x="120" y="-100" width="80" height="100" rx="10" fill="#1c2032" />
+            <rect x="220" y="-100" width="80" height="100" rx="10" fill="#1c2032" />
+            <rect x="320" y="-100" width="80" height="100" rx="10" fill="#1c2032" />
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <section id="about" class="card">
+      <h2>About the Bastille</h2>
+      <p>
+        Built in the late 1300s, the Bastille served as a fortress to defend Paris. By the 17th century, it became a prison
+        where political opponents of the monarchy were held, often without trial. Its towering walls and reputation for secrecy
+        made it a hated symbol of tyranny.
+      </p>
+      <p>
+        The fall of the Bastille inspired people around the world and became a universal symbol of the fight against oppression.
+      </p>
+    </section>
+
+    <section id="facts" class="grid cols-3">
+      <article class="card fact">
+        <div class="year">14th c.</div>
+        <div><strong>Construction</strong><br><span class="footnote">The Bastille was built to protect Paris from English invasion during the Hundred Years’ War.</span></div>
+      </article>
+      <article class="card fact">
+        <div class="year">17th c.</div>
+        <div><strong>Royal prison</strong><br><span class="footnote">The fortress was converted into a prison for political and religious prisoners.</span></div>
+      </article>
+      <article class="card fact">
+        <div class="year">1789</div>
+        <div><strong>Storming of the Bastille</strong><br><span class="footnote">The fall of the Bastille became the spark that ignited the French Revolution.</span></div>
+      </article>
+    </section>
+
+    <section id="day" class="card">
+      <h2>Bastille Day</h2>
+      <p>
+        Every year on <strong>14 July</strong>, France celebrates Bastille Day to honor the storming of the Bastille in 1789. 
+        It is a national holiday marked by military parades, fireworks, concerts, and gatherings that celebrate liberty, unity, and democracy.
+      </p>
+      <p>
+        The largest celebration takes place in Paris, with a grand military parade along the Champs-Élysées attended by thousands, including the French President. 
+        Around the world, French communities also celebrate this day as a reminder of freedom and human rights.
+      </p>
+    </section>
+
+    <section id="timeline" class="card" aria-labelledby="tlabel">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap">
+        <h2 id="tlabel" style="margin:0">Timeline of the Bastille</h2>
+        <span class="chip">Interactive timeline</span>
+      </div>
+      <div class="timeline">
+        <div class="track"></div>
+        <input id="slider" type="range" min="1357" max="1789" value="1357" step="1" aria-label="Timeline slider from 1357 to 1789" />
+        <div class="label"><span>1357</span><span>1789</span></div>
+      </div>
+      <div id="tOut" class="footnote">Drag the slider to explore key dates…</div>
+    </section>
+
+    <section id="show" class="card" aria-labelledby="showlabel">
+      <h2 id="showlabel" style="margin-top:0">Fireworks Show</h2>
+      <p class="footnote">Click anywhere in the box—or press the button above—to celebrate liberty!
+      </p>
+      <div style="height:280px; background:radial-gradient(1000px 300px at 50% 120%, #1b2138 0%, #101320 60%, #0c0f19 100%); border-radius:16px; position:relative;" id="stage">
+        <canvas id="fw" width="960" height="480" aria-hidden="true"></canvas>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footnote">Created by Akshara, Akshita & Yaalini — with ❤️ for history and freedom.</div>
+      <div>
+        <button class="btn" id="shareBtn" title="Copy site link">Share</button>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // --- Confetti ---
+    function confettiBurst(x = window.innerWidth/2, y = 100, n = 80){
+      const emojis = ['🎉','🎊','✨','💫','⭐','🥳','🎈','🇫🇷'];
+      for(let i=0;i<n;i++){
+        const s = document.createElement('div');
+        s.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+        s.style.position='fixed'; s.style.left = x+'px'; s.style.top = y+'px';
+        s.style.fontSize = (12+Math.random()*24)+'px';
+        s.style.transform = `translate(-50%,-50%) rotate(${Math.random()*360}deg)`;
+        s.style.transition = 'transform 1200ms ease-out, opacity 1200ms';
+        s.style.opacity = '1'; s.style.zIndex = 50;
+        document.body.appendChild(s);
+        const dx = (Math.random()-0.5)*300; const dy = 200+Math.random()*400;
+        requestAnimationFrame(()=>{
+          s.style.transform = `translate(${dx}px, ${dy}px) rotate(${720*Math.random()}deg)`;
+          s.style.opacity = '0';
+        });
+        setTimeout(()=>s.remove(), 1300);
+      }
+    }
+
+    // --- Timeline data ---
+    const events = [
+      {year:1357, title:'Construction begins', text:'The Bastille was built to defend Paris during the Hundred Years’ War.'},
+      {year:1600, title:'Prison use grows', text:'The Bastille became infamous as a prison for political and religious prisoners.'},
+      {year:1789, title:'Storming of the Bastille', text:'The fortress falls, symbolizing the end of absolute monarchy.'},
+    ];
+    const slider = document.getElementById('slider');
+    const tOut = document.getElementById('tOut');
+    function renderTimeline(val){
+      const nearest = events.reduce((a,b)=> Math.abs(b.year-val) < Math.abs(a.year-val) ? b : a, events[0]);
+      tOut.innerHTML = `<strong>${nearest.year}</strong> — ${nearest.title} <br><span class="footnote">${nearest.text}</span>`;
+    }
+    slider.addEventListener('input', e=> renderTimeline(+e.target.value));
+    renderTimeline(1357);
+
+    // Fireworks & buttons (kept from previous version)
+  </script>
+</body>
+</html>
